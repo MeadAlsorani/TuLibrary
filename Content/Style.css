@@ -1,0 +1,26 @@
+﻿body {
+}
+
+
+/*Control panel styles*/
+
+.ControlPanelBody{
+    margin:4rem;
+}
+.CPItemIcon {
+    font-size: 10rem;
+}
+.CPHeader{
+    width:100%;
+    text-align:center;
+}
+
+.IndexImage {
+    width: 150px;
+    height: 100px;
+}
+
+.DetailsImage{
+    width:300px;
+    height:200px;
+}

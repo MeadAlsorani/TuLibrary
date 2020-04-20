@@ -1,0 +1,19 @@
+﻿body {
+    background:url(../Images/Backgrounds/Login.jpg) center center no-repeat;
+    background-size:cover;
+}
+
+
+.LoginForm{
+    margin-top:10rem;
+    padding:50px;
+}
+
+input {
+    border-radius: 10px;
+    width: 25rem;
+}
+
+.loginSub{
+    
+}

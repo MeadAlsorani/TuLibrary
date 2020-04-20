@@ -1,0 +1,23 @@
+﻿@font-face{
+    font-family:Aljazeera;
+    src:url('../Fonts/Al-Jazeera-Arabic-Regular.ttf');
+}
+
+body {
+    font-family: Aljazeera;
+    background: url(../Images/Backgrounds/Register.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.Reg{
+    margin-top:10rem;
+    z-index:999;
+}
+
+.VBreak{
+    border-left:2px dashed black;
+    height:300px;
+    
+}
+
+
