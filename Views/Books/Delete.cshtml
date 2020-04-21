@@ -52,13 +52,7 @@
             @Html.DisplayFor(model => model.DownloadTimes)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PublisherId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublisherId)
-        </dd>
+        
 
     </dl>
 
@@ -66,7 +60,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

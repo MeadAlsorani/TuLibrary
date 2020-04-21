@@ -148,11 +148,16 @@
     <Compile Include="Migrations\202004182112359_AddPictureToBook.Designer.cs">
       <DependentUpon>202004182112359_AddPictureToBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004212356315_Add_Request_table.cs" />
+    <Compile Include="Migrations\202004212356315_Add_Request_table.Designer.cs">
+      <DependentUpon>202004212356315_Add_Request_table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Book_Language.cs" />
     <Compile Include="Models\Book_Type.cs" />
+    <Compile Include="Models\Publisher_Requests.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004182112359_AddPictureToBook.resx">
       <DependentUpon>202004182112359_AddPictureToBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004212356315_Add_Request_table.resx">
+      <DependentUpon>202004212356315_Add_Request_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -23,5 +23,7 @@ namespace TuLibrary.Models
         public System.Data.Entity.DbSet<TuLibrary.Models.Book_Language> Book_Language { get; set; }
 
         public System.Data.Entity.DbSet<TuLibrary.Models.Book_Type> Book_Type { get; set; }
+
+        public DbSet<Publisher_Requests> Publisher_Requests { get; set; }
     }
 }
