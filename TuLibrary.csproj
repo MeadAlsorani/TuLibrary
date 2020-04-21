@@ -124,16 +124,12 @@
     <Content Include="Scripts\all.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\fontawesome.min.js" />
-    <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Fonts\Alarabiya Normal Font.ttf" />
     <Content Include="Fonts\Al-Jazeera-Arabic-Regular.ttf" />
-    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +161,6 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Scripts\README.md" />
     <Content Include="Views\Home\Home.cshtml" />
@@ -187,9 +182,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Books\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
