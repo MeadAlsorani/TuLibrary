@@ -17,30 +17,59 @@ namespace TuLibrary.Controllers
         // GET: Publisher_Requests
         public ActionResult Index()
         {
-            var publisher_Requests = db.Publisher_Requests.Include(p => p.Publisher);
-            return View(publisher_Requests.ToList());
+            int sessId = Convert.ToInt32(Session["user"]);
+            User user = db.Users.Find(sessId);
+            if (user.RoleId==1)
+            {
+                var publisher_Requests = db.Publisher_Requests.Include(p => p.Publisher);
+                return View(publisher_Requests.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Home", "Home");
+            }
+            
         }
 
         // GET: Publisher_Requests/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            int sessId = Convert.ToInt32(Session["user"]);
+            User user = db.Users.Find(sessId);
+            if (user.RoleId == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
+                if (publisher_Requests == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(publisher_Requests);
             }
-            Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-            if (publisher_Requests == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Home", "Home");
             }
-            return View(publisher_Requests);
+            
         }
 
         // GET: Publisher_Requests/Create
         public ActionResult Create()
         {
-            ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name");
-            return View();
+            int SessId = Convert.ToInt32(Session["user"]);
+            User user = db.Users.Find(SessId);
+            if (user.RoleId == 2)
+            {
+                ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Home");
+            }
         }
 
         // POST: Publisher_Requests/Create
@@ -61,52 +90,30 @@ namespace TuLibrary.Controllers
             return View(publisher_Requests);
         }
 
-        // GET: Publisher_Requests/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-            if (publisher_Requests == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name", publisher_Requests.PublisherId);
-            return View(publisher_Requests);
-        }
-
-        // POST: Publisher_Requests/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Request_Text,PublisherId")] Publisher_Requests publisher_Requests)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(publisher_Requests).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name", publisher_Requests.PublisherId);
-            return View(publisher_Requests);
-        }
 
         // GET: Publisher_Requests/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            int sessId = Convert.ToInt32(Session["user"]);
+            User user = db.Users.Find(sessId);
+            if (user.RoleId == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
+                if (publisher_Requests == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(publisher_Requests);
             }
-            Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-            if (publisher_Requests == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Home", "Home");
             }
-            return View(publisher_Requests);
+            
         }
 
         // POST: Publisher_Requests/Delete/5
