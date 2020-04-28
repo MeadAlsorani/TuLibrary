@@ -2,6 +2,7 @@
 using TuLibrary.Models;
 using GeneralFunctions;
 using System.Linq;
+using System;
 
 namespace TuLibrary.Controllers
 {
@@ -61,14 +62,14 @@ namespace TuLibrary.Controllers
             {
                 return RedirectToAction("Home", "Home");
             }
-            
+
         }
 
 
         [HttpPost]
         public ActionResult Login(User user)
         {
-            
+
             string HashedPass = c.Hashing(user.Password);
             var CredintialCheck = db.Users.FirstOrDefault(u => u.Email == user.Email && u.Password == HashedPass);
 
@@ -89,17 +90,31 @@ namespace TuLibrary.Controllers
 
         public ActionResult PublisherControlPanel()
         {
-            if (Session["user"]!=null)
+            if (Session["user"] != null)
             {
                 return View();
             }
             else
             {
-                return RedirectToAction("Home","Home");
+                return RedirectToAction("Home", "Home");
             }
-            
+
         }
 
+
+        public ActionResult AdminControlPanel()
+        {
+            //int sessId = Convert.ToInt32(Session["user"]);
+            //User user = db.Users.Find(sessId);
+            //if (user.RoleId == 1)
+            //{
+                return View();
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Home", "Home");
+            //}
+        }
 
     }
 }

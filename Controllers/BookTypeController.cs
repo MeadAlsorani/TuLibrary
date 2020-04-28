@@ -10,18 +10,16 @@ using TuLibrary.Models;
 
 namespace TuLibrary.Controllers
 {
-    public class Publisher_RequestsController : Controller
+    public class BookTypeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Publisher_Requests
+        // GET: BookType
         public ActionResult Index()
-        {
-            
+        {            
             if (UserAuth(1))
             {
-                var publisher_Requests = db.Publisher_Requests.Include(p => p.Publisher);
-                return View(publisher_Requests.ToList());
+                return View(db.Book_Type.ToList());
             }
             else
             {
@@ -30,21 +28,21 @@ namespace TuLibrary.Controllers
             
         }
 
-        // GET: Publisher_Requests/Details/5
+        // GET: BookType/Details/5
         public ActionResult Details(int? id)
-        {           
+        {
             if (UserAuth(1))
             {
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-                if (publisher_Requests == null)
+                Book_Type book_Type = db.Book_Type.Find(id);
+                if (book_Type == null)
                 {
                     return HttpNotFound();
                 }
-                return View(publisher_Requests);
+                return View(book_Type);
             }
             else
             {
@@ -53,41 +51,77 @@ namespace TuLibrary.Controllers
             
         }
 
-        // GET: Publisher_Requests/Create
+        // GET: BookType/Create
         public ActionResult Create()
         {
-            
-            if (UserAuth(2))
+            if (UserAuth(1))
             {
-                ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name");
                 return View();
             }
             else
             {
                 return RedirectToAction("Home", "Home");
             }
+            
         }
 
-        // POST: Publisher_Requests/Create
+        // POST: BookType/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Request_Text,PublisherId")] Publisher_Requests publisher_Requests)
+        public ActionResult Create([Bind(Include = "Id,Type_Name")] Book_Type book_Type)
         {
             if (ModelState.IsValid)
             {
-                db.Publisher_Requests.Add(publisher_Requests);
+                db.Book_Type.Add(book_Type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name", publisher_Requests.PublisherId);
-            return View(publisher_Requests);
+            return View(book_Type);
         }
 
+        // GET: BookType/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (UserAuth(1))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book_Type book_Type = db.Book_Type.Find(id);
+                if (book_Type == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(book_Type);
+            }
+            else
+            {
+                return RedirectToAction("Home", "Home");
+            }
+            
+        }
 
-        // GET: Publisher_Requests/Delete/5
+        // POST: BookType/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Type_Name")] Book_Type book_Type)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(book_Type).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(book_Type);
+        }
+
+        // GET: BookType/Delete/5
         public ActionResult Delete(int? id)
         {            
             if (UserAuth(1))
@@ -96,27 +130,28 @@ namespace TuLibrary.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-                if (publisher_Requests == null)
+                Book_Type book_Type = db.Book_Type.Find(id);
+                if (book_Type == null)
                 {
                     return HttpNotFound();
                 }
-                return View(publisher_Requests);
+                return View(book_Type);
             }
             else
             {
                 return RedirectToAction("Home", "Home");
             }
+
             
         }
 
-        // POST: Publisher_Requests/Delete/5
+        // POST: BookType/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-            db.Publisher_Requests.Remove(publisher_Requests);
+            Book_Type book_Type = db.Book_Type.Find(id);
+            db.Book_Type.Remove(book_Type);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

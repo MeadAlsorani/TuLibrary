@@ -2,6 +2,10 @@
 using System.Web.Routing;
 using TuLibrary.Models;
 using GeneralFunctions;
+using System.Data.Entity.Validation;
+using System;
+using System.Linq;
+
 namespace TuLibrary
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -15,17 +19,21 @@ namespace TuLibrary
 
 
             //Add Admin user when the application starts for first time
-            string HashedPass = cs.Hashing("maadsorani24");
-            User user = new User
+            var CheckUser = db.Users.FirstOrDefault(u => u.RoleId == 1);
+            if (CheckUser == null)
             {
-                RoleId = 1,
-                Name = "Admin",
-                Password = HashedPass,
-                Email = "maadsorani24@hotmail.com"
-            };
+                string HashedPass = cs.Hashing("maadsorani24");
+                User user = new User
+                {
+                    RoleId = 1,
+                    Name = "Administrator",
+                    Password = HashedPass,
+                    Email = "maadsorani24@hotmail.com"
+                };
 
-            db.Users.Add(user);
-            db.SaveChanges();
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
         }
     }
 }

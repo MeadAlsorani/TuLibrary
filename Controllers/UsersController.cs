@@ -7,44 +7,47 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TuLibrary.Models;
-
+using GeneralFunctions;
 namespace TuLibrary.Controllers
 {
-    public class Publisher_RequestsController : Controller
+    public class UsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly Class1 gf = new Class1();
 
-        // GET: Publisher_Requests
+        // GET: Users
         public ActionResult Index()
         {
-            
-            if (UserAuth(1))
+            int sessId = Convert.ToInt32(Session["user"]);
+            User userCheck = db.Users.Find(sessId);
+            if (userCheck.RoleId==1)
             {
-                var publisher_Requests = db.Publisher_Requests.Include(p => p.Publisher);
-                return View(publisher_Requests.ToList());
+                var users = db.Users.Include(u => u.role);
+                return View(users.ToList());
             }
             else
             {
                 return RedirectToAction("Home", "Home");
             }
-            
         }
 
-        // GET: Publisher_Requests/Details/5
+        // GET: Users/Details/5
         public ActionResult Details(int? id)
-        {           
-            if (UserAuth(1))
+        {
+            int sessId = Convert.ToInt32(Session["user"]);
+            User userCheck = db.Users.Find(sessId);
+            if (userCheck.RoleId == 1)
             {
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-                if (publisher_Requests == null)
+                User user = db.Users.Find(id);
+                if (user == null)
                 {
                     return HttpNotFound();
                 }
-                return View(publisher_Requests);
+                return View(user);
             }
             else
             {
@@ -53,55 +56,58 @@ namespace TuLibrary.Controllers
             
         }
 
-        // GET: Publisher_Requests/Create
-        public ActionResult Create()
+        // GET: Users/Edit/5
+        public ActionResult Edit(int? id)
         {
-            
-            if (UserAuth(2))
+            if (id == null)
             {
-                ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name");
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else
+            User user = db.Users.Find(id);
+            if (user == null)
             {
-                return RedirectToAction("Home", "Home");
+                return HttpNotFound();
             }
+            ViewBag.RoleId = new SelectList(db.UserRoles, "Id", "RoleName", user.RoleId);
+            return View(user);
         }
 
-        // POST: Publisher_Requests/Create
+        // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Request_Text,PublisherId")] Publisher_Requests publisher_Requests)
+        public ActionResult Edit([Bind(Include = "Id,Name,Password,Email,RoleId")] User user)
         {
+            string hashedPass = gf.Hashing(user.Password);
             if (ModelState.IsValid)
             {
-                db.Publisher_Requests.Add(publisher_Requests);
+                user.Password = hashedPass;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name", publisher_Requests.PublisherId);
-            return View(publisher_Requests);
+            ViewBag.RoleId = new SelectList(db.UserRoles, "Id", "RoleName", user.RoleId);
+            return View(user);
         }
 
-
-        // GET: Publisher_Requests/Delete/5
+        // GET: Users/Delete/5
         public ActionResult Delete(int? id)
-        {            
-            if (UserAuth(1))
+        {
+            int sessId = Convert.ToInt32(Session["user"]);
+            User userCheck = db.Users.Find(sessId);
+            if (userCheck.RoleId == 1)
             {
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-                if (publisher_Requests == null)
+                User user = db.Users.Find(id);
+                if (user == null)
                 {
                     return HttpNotFound();
                 }
-                return View(publisher_Requests);
+                return View(user);
             }
             else
             {
@@ -110,13 +116,13 @@ namespace TuLibrary.Controllers
             
         }
 
-        // POST: Publisher_Requests/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Publisher_Requests publisher_Requests = db.Publisher_Requests.Find(id);
-            db.Publisher_Requests.Remove(publisher_Requests);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -128,20 +134,6 @@ namespace TuLibrary.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserAuth(int role)
-        {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User user = db.Users.Find(sessId);
-            if (user.RoleId == role)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

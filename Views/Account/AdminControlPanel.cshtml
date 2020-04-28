@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "AdminControlPanel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="AdminPanel container">
+    <h2 class="text-center">AdminControlPanel</h2>
+
+
+    <div class="row text-center">
+        <a href="~/Users/Index" class="col-md-3">            
+            <div class="CpItem">
+                <div class="CPItemIcon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="CpItemTitle text-center">
+                    <h4>
+                        Users
+                    </h4>
+                </div>
+            </div>
+        </a>
+
+        <a href="~/BookType/Index" class="col-md-3">
+            <div class="CpItem">
+                <div class="CPItemIcon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="CpItemTitle">
+                    <h4>
+                        Book Types
+                    </h4>
+                </div>
+            </div>
+        </a>
+
+        <a href="~/BookLanguage/Index" class="col-md-3">
+            <div class="CpItem">
+                <div class="CPItemIcon">
+                    <i class="fas fa-atlas"></i>
+                </div>
+                <div class="CpItemTitle">
+                    <h4>
+                        Book Languages
+                    </h4>
+                </div>
+            </div>
+        </a>
+
+        <a href="~/Publisher_Requests/Index" class="col-md-3">
+            <div class="CpItem">
+                <div class="CPItemIcon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="CpItemTitle">
+                    <h4>
+                        Publishers Requests
+                    </h4>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</div>
+
