@@ -17,7 +17,7 @@ namespace TuLibrary.Controllers
     {
         Class1 gf = new Class1();
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        UserAuthentication UserAuthentication = new UserAuthentication();
 
         // GET: Books
         public ActionResult Index()

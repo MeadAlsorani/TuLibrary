@@ -10,7 +10,7 @@ namespace TuLibrary.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         Class1 c = new Class1();
-
+        UserAuthentication UA = new UserAuthentication();
         // GET: Register
         public ActionResult Register()
         {
@@ -104,16 +104,14 @@ namespace TuLibrary.Controllers
 
         public ActionResult AdminControlPanel()
         {
-            //int sessId = Convert.ToInt32(Session["user"]);
-            //User user = db.Users.Find(sessId);
-            //if (user.RoleId == 1)
-            //{
+            if (UA.UserCheck(1))
+            {
                 return View();
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Home", "Home");
-            //}
+            }
+            else
+            {
+                return RedirectToAction("Home", "Home");
+            }
         }
 
     }

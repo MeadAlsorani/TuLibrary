@@ -13,12 +13,12 @@ namespace TuLibrary.Controllers
     public class Publisher_RequestsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        UserAuthentication UserAuthentication = new UserAuthentication();
         // GET: Publisher_Requests
         public ActionResult Index()
         {
             
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 var publisher_Requests = db.Publisher_Requests.Include(p => p.Publisher);
                 return View(publisher_Requests.ToList());
@@ -33,7 +33,7 @@ namespace TuLibrary.Controllers
         // GET: Publisher_Requests/Details/5
         public ActionResult Details(int? id)
         {           
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -57,7 +57,7 @@ namespace TuLibrary.Controllers
         public ActionResult Create()
         {
             
-            if (UserAuth(2))
+            if (UserAuthentication.UserCheck(2))
             {
                 ViewBag.PublisherId = new SelectList(db.Users, "Id", "Name");
                 return View();
@@ -90,7 +90,7 @@ namespace TuLibrary.Controllers
         // GET: Publisher_Requests/Delete/5
         public ActionResult Delete(int? id)
         {            
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -128,20 +128,6 @@ namespace TuLibrary.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserAuth(int role)
-        {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User user = db.Users.Find(sessId);
-            if (user.RoleId == role)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

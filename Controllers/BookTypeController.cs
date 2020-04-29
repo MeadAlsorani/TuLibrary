@@ -13,11 +13,11 @@ namespace TuLibrary.Controllers
     public class BookTypeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        UserAuthentication UserAuthentication = new UserAuthentication();
         // GET: BookType
         public ActionResult Index()
         {            
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 return View(db.Book_Type.ToList());
             }
@@ -31,7 +31,7 @@ namespace TuLibrary.Controllers
         // GET: BookType/Details/5
         public ActionResult Details(int? id)
         {
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -54,7 +54,7 @@ namespace TuLibrary.Controllers
         // GET: BookType/Create
         public ActionResult Create()
         {
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 return View();
             }
@@ -85,7 +85,7 @@ namespace TuLibrary.Controllers
         // GET: BookType/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -124,7 +124,7 @@ namespace TuLibrary.Controllers
         // GET: BookType/Delete/5
         public ActionResult Delete(int? id)
         {            
-            if (UserAuth(1))
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -163,20 +163,6 @@ namespace TuLibrary.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserAuth(int role)
-        {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User user = db.Users.Find(sessId);
-            if (user.RoleId == role)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

@@ -13,11 +13,11 @@ namespace TuLibrary.Controllers
     public class BookLanguageController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        UserAuthentication userAuth = new UserAuthentication();
         // GET: BookLanguage
         public ActionResult Index()
         {
-            if (UserAuth(1))
+            if (userAuth.UserCheck(1))
             {
                 return View(db.Book_Language.ToList());
             }
@@ -31,22 +31,38 @@ namespace TuLibrary.Controllers
         // GET: BookLanguage/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (userAuth.UserCheck(1))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book_Language book_Language = db.Book_Language.Find(id);
+                if (book_Language == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(book_Language);
             }
-            Book_Language book_Language = db.Book_Language.Find(id);
-            if (book_Language == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Home", "Home");
             }
-            return View(book_Language);
+            
         }
 
         // GET: BookLanguage/Create
         public ActionResult Create()
         {
-            return View();
+            if (userAuth.UserCheck(1))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home", "Home");
+            }
+            
         }
 
         // POST: BookLanguage/Create
@@ -69,16 +85,24 @@ namespace TuLibrary.Controllers
         // GET: BookLanguage/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (userAuth.UserCheck(1))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book_Language book_Language = db.Book_Language.Find(id);
+                if (book_Language == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(book_Language);
             }
-            Book_Language book_Language = db.Book_Language.Find(id);
-            if (book_Language == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Home", "Home");
             }
-            return View(book_Language);
+            
         }
 
         // POST: BookLanguage/Edit/5
@@ -100,16 +124,24 @@ namespace TuLibrary.Controllers
         // GET: BookLanguage/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (userAuth.UserCheck(1))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book_Language book_Language = db.Book_Language.Find(id);
+                if (book_Language == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(book_Language);
             }
-            Book_Language book_Language = db.Book_Language.Find(id);
-            if (book_Language == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Home", "Home");
             }
-            return View(book_Language);
+            
         }
 
         // POST: BookLanguage/Delete/5
@@ -130,20 +162,6 @@ namespace TuLibrary.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserAuth(int role)
-        {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User user = db.Users.Find(sessId);
-            if (user.RoleId==role)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

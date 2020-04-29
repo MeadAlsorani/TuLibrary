@@ -14,13 +14,11 @@ namespace TuLibrary.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private readonly Class1 gf = new Class1();
-
+        UserAuthentication UserAuthentication = new UserAuthentication();
         // GET: Users
         public ActionResult Index()
-        {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User userCheck = db.Users.Find(sessId);
-            if (userCheck.RoleId==1)
+        {            
+            if (UserAuthentication.UserCheck(1))
             {
                 var users = db.Users.Include(u => u.role);
                 return View(users.ToList());
@@ -34,9 +32,8 @@ namespace TuLibrary.Controllers
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User userCheck = db.Users.Find(sessId);
-            if (userCheck.RoleId == 1)
+            
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -94,9 +91,8 @@ namespace TuLibrary.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {
-            int sessId = Convert.ToInt32(Session["user"]);
-            User userCheck = db.Users.Find(sessId);
-            if (userCheck.RoleId == 1)
+            
+            if (UserAuthentication.UserCheck(1))
             {
                 if (id == null)
                 {
@@ -135,5 +131,6 @@ namespace TuLibrary.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
