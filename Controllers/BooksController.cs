@@ -38,26 +38,19 @@ namespace TuLibrary.Controllers
         // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["user"] != null)
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Book book = db.Book.Find(id);
-                Book_Language language = db.Book_Language.FirstOrDefault(b => b.Id == book.LanguageId);
-                Book_Type book_Type = db.Book_Type.FirstOrDefault(t => t.Id == book.TypeId);
-                if (book == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(book);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else
+            Book book = db.Book.Find(id);
+            Book_Language language = db.Book_Language.FirstOrDefault(b => b.Id == book.LanguageId);
+            Book_Type book_Type = db.Book_Type.FirstOrDefault(t => t.Id == book.TypeId);
+            User publisher = db.Users.FirstOrDefault(p => p.Id == book.PublisherId);
+            if (book == null)
             {
-                return RedirectToAction("Login", "Account");
+                return HttpNotFound();
             }
-
+            return View(book);
         }
 
         // GET: Books/Create
@@ -81,19 +74,28 @@ namespace TuLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Book book, HttpPostedFileBase BookPicture)
+        public ActionResult Create(Book book, HttpPostedFileBase BookPicture, HttpPostedFileBase BookPath)
         {
             string Random = gf.RandomString();
+
             string CompletPath = Random + BookPicture.FileName;
             string PicturePath = Path.Combine(Server.MapPath("~/Images/Books"), CompletPath);
+
+            string bookFullpath = Random + BookPath.FileName;
+            string bookFilePath = Path.Combine(Server.MapPath("~/BooksFiles"), bookFullpath);
+
             if (ModelState.IsValid)
             {
-                if (BookPicture != null)
+                if (BookPicture != null && BookPicture.ContentLength > 0)
                 {
                     BookPicture.SaveAs(PicturePath);
                     book.Picture = CompletPath;
                 }
-
+                if (BookPath != null && BookPath.ContentLength > 0)
+                {
+                    BookPath.SaveAs(bookFilePath);
+                    book.BookPath = bookFullpath;
+                }
                 int userId = Convert.ToInt32(Session["user"]);
                 var User = db.Users.Find(userId);
                 book.PublisherId = User.Id;
@@ -143,7 +145,7 @@ namespace TuLibrary.Controllers
             {
                 var oldBook = db.Book.FirstOrDefault(b => b.Id == book.Id);
                 if (BookPicture == null)
-                {                    
+                {
                     book.Picture = oldBook.Picture;
                 }
                 else
@@ -214,6 +216,19 @@ namespace TuLibrary.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public FileResult DownloadFile(string filePath, string getFileName, int BookId)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/BooksFiles/") + filePath);
+            string fileName = getFileName + ".pdf";
+
+            var book = db.Book.Find(BookId);
+            book.DownloadTimes += 1;
+            db.SaveChanges();
+
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }
 }

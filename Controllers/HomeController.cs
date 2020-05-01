@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using TuLibrary.Models;
+using System.Net;
+using System.Web;
+using GeneralFunctions;
+using System.Data.Entity.Migrations;
 
 namespace TuLibrary.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         // GET: Home
         public ActionResult Home()
-        {
-            return View();
+        {            
+            var books = db.Book.ToList();
+            var type = db.Book_Type.ToList();
+            var language = db.Book_Language.ToList();
+            var publisher = db.Users.ToList();
+            return View(new Book_Type_LanguageViewModel {book=books,Book_Type=type,Book_Language=language,Publisher= publisher });
         }
     }
 }

@@ -1,60 +1,46 @@
 ﻿@model TuLibrary.Models.Book
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name + "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@Model.Name Details</h2>
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.language.Language)
-        </dt>
+<div class="container">
+    <div class="row BookDetails">
+        <div class="col-md-5" style="padding-top:2rem">
+            <span class="BookInfo">
+                @Html.DisplayNameFor(b => b.Name):
+                @Html.DisplayFor(b => b.Name)
+            </span>
+            <br />
+            <hr />
+            <span class="BookInfo">
+                Publisher:
+                @Html.DisplayFor(b => b.publisher.Name)
+            </span>
+            <br />
+            <hr />
+            <span class="BookInfo">
+                @Html.DisplayNameFor(b => b.language.Language)
+                @Html.DisplayFor(b => b.language.Language)
+            </span>
+            <br />
+            <hr />
+            <span class="BookInfo">
+                @Html.DisplayNameFor(b => b.type.Type_Name):
+                @Html.DisplayFor(b => b.type.Type_Name)
+            </span>
 
-        <dd>
-            @Html.DisplayFor(model => model.language.Language)
-        </dd>
+            <br/>
+            <hr />
+            @Html.ActionLink("Download File", actionName: "DownloadFile", controllerName: "Books", routeValues: new { filePath = Model.BookPath, getFileName = Model.Name, BookId = Model.Id }, htmlAttributes: new { @class = "btn btn-info" })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.type.Type_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.type.Type_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-
-        <dd>
-            <img src="~/Images/Books/@Model.Picture" class="DetailsImage" />
-        </dd>
-
-
-    </dl>
+        </div>
+        <div class="col-md-7">
+            <img src="~/Images/Books/@Model.Picture" width="100%"/>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

@@ -4,15 +4,17 @@
 
 /*Control panel styles*/
 
-.ControlPanelBody{
-    margin:4rem;
+.ControlPanelBody {
+    margin: 4rem;
 }
+
 .CPItemIcon {
     font-size: 10rem;
 }
-.CPHeader{
-    width:100%;
-    text-align:center;
+
+.CPHeader {
+    width: 100%;
+    text-align: center;
 }
 
 .IndexImage {
@@ -20,22 +22,70 @@
     height: 100px;
 }
 
-.DetailsImage{
-    width:300px;
+.DetailsImage {
+    width: 300px;
+    height: 200px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+.AdminPanel {
+    box-shadow: 1px 1px 20px black;
+    margin-top: 5rem;
+    padding: 5rem;
+}
+
+
+/*Navbar*/
+.masthead {
+    background-color: black;
+}
+
+
+.navbar-brand {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: .5s ease all;
+}
+
+    .navbar-brand:hover {
+        font-size: 2rem;
+    }
+
+.nav-item{
+    padding:5px;
+}
+.nav-item a {
+    color: white;
+    transition: all .5s ease;
+    font-weight:bold;
+}
+
+.nav-item:hover a{
+    font-size:1.2rem;
+    background-color:red;
+    border-radius:10px;
+}
+
+
+/*Book Card*/
+.bookPicture img{
     height:200px;
+    width:200px;
 }
 
-a{
-    text-decoration:none;
-    color:black;    
+.BookDetails{
+    padding:20px;
 }
 
-a:hover{
-    text-decoration:none;
-}
-
-.AdminPanel{
-    box-shadow:1px 1px 20px black;
-    margin-top:5rem;
-    padding:5rem;
+.BookInfo{
+    font-size:2rem;    
 }

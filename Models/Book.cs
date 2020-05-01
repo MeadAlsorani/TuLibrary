@@ -35,7 +35,7 @@ namespace TuLibrary.Models
         [DefaultValue(0)]
         public int DownloadTimes { get; set; }
 
-
+        public string BookPath { get; set; }
         public int LanguageId { get; set; }
 
         public int PublisherId { get; set; }
@@ -44,7 +44,7 @@ namespace TuLibrary.Models
 
         public string Picture { get; set; }
 
-        public User puplisher { get; set; }
+        public User publisher { get; set; }
         public Book_Language language { get; set; }
         public Book_Type type { get; set; }
 

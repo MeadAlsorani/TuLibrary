@@ -156,11 +156,20 @@
     <Compile Include="Migrations\202004212356315_Add_Request_table.Designer.cs">
       <DependentUpon>202004212356315_Add_Request_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004301937120_test.cs" />
+    <Compile Include="Migrations\202004301937120_test.Designer.cs">
+      <DependentUpon>202004301937120_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004302332137_AddBookPath.cs" />
+    <Compile Include="Migrations\202004302332137_AddBookPath.Designer.cs">
+      <DependentUpon>202004302332137_AddBookPath.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Book_Language.cs" />
     <Compile Include="Models\Book_Type.cs" />
+    <Compile Include="Models\Book_Type_LanguageViewModel.cs" />
     <Compile Include="Models\Publisher_Requests.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -173,7 +182,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Scripts\README.md" />
-    <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\PublisherControlPanel.cshtml" />
@@ -202,6 +210,7 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -211,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BooksFiles\" />
     <Folder Include="Images\Books\" />
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +235,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004212356315_Add_Request_table.resx">
       <DependentUpon>202004212356315_Add_Request_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004301937120_test.resx">
+      <DependentUpon>202004301937120_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004302332137_AddBookPath.resx">
+      <DependentUpon>202004302332137_AddBookPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
