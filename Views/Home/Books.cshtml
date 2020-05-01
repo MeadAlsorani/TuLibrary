@@ -1,0 +1,26 @@
+﻿@model TuLibrary.Models.Book_Type_LanguageViewModel
+
+@{
+    ViewBag.Title = "Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container">
+    <div class="row">
+        @foreach (var item in Model.book)
+        {
+            <a href="~/Books/Details/@item.Id" class="col-md-3">
+                <div class="bookCard">
+                    <div class="bookPicture">
+                        <img src="~/Images/Books/@item.Picture" alt="Book Picture" />
+                    </div>
+                    <div class="BookInfo">
+                        <h4 class="bookTitle">@item.Name</h4>
+                        <h5 class="DTText">@item.DownloadTimes</h5>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</main>
+

@@ -13,12 +13,39 @@ namespace TuLibrary.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Home
         public ActionResult Home()
-        {            
+        {
             var books = db.Book.ToList();
             var type = db.Book_Type.ToList();
             var language = db.Book_Language.ToList();
             var publisher = db.Users.ToList();
-            return View(new Book_Type_LanguageViewModel {book=books,Book_Type=type,Book_Language=language,Publisher= publisher });
+            return View(new Book_Type_LanguageViewModel { book = books, Book_Type = type, Book_Language = language, Publisher = publisher });
+        }
+
+        public ActionResult Publisher()
+        {
+            var books = db.Book.ToList();
+            var type = db.Book_Type.ToList();
+            var language = db.Book_Language.ToList();
+            var publisher = db.Users.ToList();
+            return View(new Book_Type_LanguageViewModel { book = books, Book_Type = type, Book_Language = language, Publisher = publisher });
+        }
+
+        public ActionResult Language()
+        {
+            var books = db.Book.ToList();
+            var type = db.Book_Type.ToList();
+            var language = db.Book_Language.ToList();
+            var publisher = db.Users.ToList();
+            return View(new Book_Type_LanguageViewModel { book = books, Book_Type = type, Book_Language = language, Publisher = publisher });
+        }
+
+        public ActionResult Books()
+        {
+            var books = db.Book.ToList();
+            var type = db.Book_Type.ToList();
+            var language = db.Book_Language.ToList();
+            var publisher = db.Users.ToList();
+            return View(new Book_Type_LanguageViewModel { book = books, Book_Type = type, Book_Language = language, Publisher = publisher });
         }
     }
 }

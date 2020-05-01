@@ -22,28 +22,31 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                 <ul class="navbar-nav text-center">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="~/Home/Home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Publishers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Types</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Books</a>
+                        <a class="nav-link" href="~/Home/Publisher">Publishers</a>
                     </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Home/Language">Languages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Home/Books">Books</a>
+                    </li>
                 </ul>
                 @*<form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>*@
-            </div>
+                @Html.Partial("_LoginPartial")
+            </div>            
         </nav>
     </header>
 
     <div class="container">
-        @RenderBody()
+        <div class="body-content">
+            @RenderBody()
+        </div>
     </div>
 
 

@@ -162,9 +162,9 @@ namespace TuLibrary.Controllers
                         System.IO.File.Delete(OldPicturePath);
                     }
                 }
-
+                book.BookPath = oldBook.BookPath;
                 book.PublisherId = oldBook.PublisherId;
-
+                book.DownloadTimes = oldBook.DownloadTimes;
                 db.Book.AddOrUpdate(book);
 
                 db.SaveChanges();
@@ -223,7 +223,7 @@ namespace TuLibrary.Controllers
         {
             byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/BooksFiles/") + filePath);
             string fileName = getFileName + ".pdf";
-
+            
             var book = db.Book.Find(BookId);
             book.DownloadTimes += 1;
             db.SaveChanges();

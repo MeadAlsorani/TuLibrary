@@ -113,6 +113,12 @@ namespace TuLibrary.Controllers
                 return RedirectToAction("Home", "Home");
             }
         }
-
+        public void LogOff()
+        {
+            Session["user"] = null;
+            RedirectToAction("Home", "Home");
+        }
     }
+
+
 }

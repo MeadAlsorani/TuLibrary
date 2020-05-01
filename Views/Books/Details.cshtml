@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Name Details</h2>
+<h2 class="text-center DetailsTitle">@Model.Name Details</h2>
 
 <div class="container">
     <div class="row BookDetails">
@@ -23,7 +23,7 @@
             <br />
             <hr />
             <span class="BookInfo">
-                @Html.DisplayNameFor(b => b.language.Language)
+                @Html.DisplayNameFor(b => b.language.Language):
                 @Html.DisplayFor(b => b.language.Language)
             </span>
             <br />
@@ -35,12 +35,17 @@
 
             <br/>
             <hr />
-            @Html.ActionLink("Download File", actionName: "DownloadFile", controllerName: "Books", routeValues: new { filePath = Model.BookPath, getFileName = Model.Name, BookId = Model.Id }, htmlAttributes: new { @class = "btn btn-info" })
+            @Html.ActionLink("Download Book", actionName: "DownloadFile", controllerName: "Books", routeValues: new { filePath = Model.BookPath, getFileName = Model.Name, BookId = Model.Id }, htmlAttributes: new { @class = "btn btn-info"})
 
+            <br />
+            <br />
+            <p>Donwload Times : @Html.DisplayFor(d=>d.DownloadTimes)</p>
         </div>
         <div class="col-md-7">
-            <img src="~/Images/Books/@Model.Picture" width="100%"/>
+            <img src="~/Images/Books/@Model.Picture" width="100%" height="500px"/>
         </div>
     </div>
 </div>
+
+
 

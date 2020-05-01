@@ -1,21 +1,21 @@
 ﻿@model TuLibrary.Models.Book_Type_LanguageViewModel
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Language";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <main class="container">
-    @foreach (var item in Model.Book_Type)
+    @foreach (var item in Model.Book_Language)
     {
         <section class="row">
             <div class="TypeHeader col-md-12 text-center">
-                <h1>@item.Type_Name</h1>
+                <h1>@item.Language</h1>
             </div>
             <br />
-            @foreach (var book in Model.book.Where(b => b.TypeId == item.Id))
+            @foreach (var book in Model.book.Where(b => b.LanguageId == item.Id))
             {
-                <a href="~/Books/Details/@book.Id" class="col-md-3">
+                <a href="~/Books/Details/@book.Id" class="col-md-3">                    
                     <div class="bookCard">
                         <div class="bookPicture">
                             <img src="~/Images/Books/@book.Picture" alt="Book Picture" />
@@ -31,6 +31,4 @@
     }
 
 </main>
-
-
 
